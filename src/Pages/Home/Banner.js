@@ -4,7 +4,7 @@ import chair from '../../assets/images/chair.png';
 const Banner = () => {
     return (
         <div className="hero min-h-screen">
-            <div className="hero-content flex-col lg:flex-row-reverse px-14">
+            <div className="hero-content flex-col lg:flex-row-reverse px-12">
                 <img src={chair} alt="doctor chair" className="max-w-xl rounded-lg shadow-2xl flex justify-end" />
                 <div>
                     <h1 className="text-5xl font-bold">Your New Smile Starts Here</h1>
