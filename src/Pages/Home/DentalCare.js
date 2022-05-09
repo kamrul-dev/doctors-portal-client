@@ -3,7 +3,7 @@ import treatment from '../../assets/images/treatment.png';
 import PrimaryButton from '../Shared/PrimaryButton';
 const DentalCare = () => {
     return (
-        <div className="hero mt-36">
+        <div className="hero mt-36 container mx-auto px-12">
             <div className="hero-content flex-col lg:flex-row">
                 <img src={treatment} alt='treatment' className="max-w-sm rounded-lg shadow-2xl" />
                 <div className='ml-24'>
