@@ -8,7 +8,7 @@ const Contact = () => {
                 background: `url(${contact})`,
                 backgroundSize: "cover"
             }}
-            className='flex justify-center my-28 py-16'>
+            className='flex justify-center py-16'>
             <div>
                 <div>
                     <h4 className="text-xl text-primary font-bold text-center">Contact Us</h4>
