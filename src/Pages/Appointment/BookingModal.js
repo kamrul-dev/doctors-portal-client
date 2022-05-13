@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 const BookingModal = ({ treatment, setTreatment, date }) => {
@@ -8,11 +9,36 @@ const BookingModal = ({ treatment, setTreatment, date }) => {
 
     const [user, loading, error] = useAuthState(auth);
 
+    const formattedDate = format(date, 'PP');
+
     const hadndleBooking = event => {
         event.preventDefault();
         const slot = event.target.slot.value;
-        console.log(slot, _id, name);
-        setTreatment(null);
+
+        const booking = {
+            treatmentId: _id,
+            treatment: name,
+            date: formattedDate,
+            slot,
+            patient: user.email,
+            patientName: user.displayName,
+            phone: event.target.phone.value
+        }
+        fetch('http://localhost:5000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast('Booking Success!')
+                // for close the modal
+                setTreatment(null);
+            })
     }
 
     return (
