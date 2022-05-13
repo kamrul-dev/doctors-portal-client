@@ -34,9 +34,12 @@ const BookingModal = ({ treatment, setTreatment, date }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                toast('Booking Success!')
-                // for close the modal
+                if (data.success) {
+                    toast(`Appiontment is set, ${formattedDate} at ${slot}`);
+                }
+                else {
+                    toast.error(`Aready have an Appiontment on, ${data.booking?.date} at ${data.booking?.slot}`);
+                }
                 setTreatment(null);
             })
     }
