@@ -9,8 +9,42 @@ const AddDoctor = () => {
 
     const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()))
 
+    const imageStorageKey = '3ca0901828bf167160b533e2cfa55655';
+
+    /***
+     * 3 ways to store images
+     * 1. Third party storage // Free open public storage is ok for practice project
+     * 2. Your won storage in your own server (file system)
+     * 3. Database: Mongodb
+     * 
+     * YUP : to validate file: serach: Yup file validation for react hooks form
+     *
+    */
+
+    // upload image from device
     const onSubmit = async data => {
-        console.log('data', data);
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageStorageKey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    const img = result.data.url;
+                    const doctor = {
+                        name: data.name,
+                        email: data.eamil,
+                        specialty: data.specialty,
+                        img: img
+                    }
+                    // send to your database
+                }
+                console.log('imagebb result', result);
+            })
     }
 
     if (isLoading) {
@@ -69,7 +103,7 @@ const AddDoctor = () => {
                     <label className="label">
                         <span className="label-text">Specialty</span>
                     </label>
-                    <select {...register('specialty')} className="select w-full max-w-xs">
+                    <select {...register('specialty')} className="select input-bordered w-full max-w-xs">
                         {
                             services.map(service => <option
                                 key={service._id}
